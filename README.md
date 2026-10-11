@@ -42,15 +42,12 @@ Then add a line to the Result section above, e.g.
 - **Validation set used for model selection.** CatBoost was given the same hold-out as its `eval_set` (which selects the best iteration by default), and I compared learning rates on it. The reported accuracy is therefore slightly optimistic.
 - **Single split, no cross-validation.** One random split gives no estimate of variance.
 - **Accuracy hides class balance.** "Functional needs repair" is a small class, and I did not report per-class precision and recall or a confusion matrix, so accuracy says little about how well that class is predicted.
-- **`id` is used as a feature.** It is a row identifier and should be dropped.
-- **Test set preprocessing differs from training.** The `unknown` fill is applied to the training data but not the test data, and the test categorical columns are encoded separately from the training set, so integer codes can differ between the two. This affects the submission, not the validation accuracy.
 - **Hard-coded local paths** (`F:/...`) mean the notebook will not run as-is.
 
 ## Possible next steps
 
 - Compute the majority-class baseline, per-class metrics and a confusion matrix.
 - Replace the single split with stratified k-fold cross-validation, and keep a final test set untouched.
-- Drop `id`; encode the training and test sets together (or pass raw strings to CatBoost) so the categories line up.
 - Add engineered features from the columns I dropped (for example pump age from `construction_year`, and water-source and extraction details).
 
 ## Running it
